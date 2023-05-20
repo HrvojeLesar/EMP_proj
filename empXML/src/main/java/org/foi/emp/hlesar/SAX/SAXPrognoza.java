@@ -2,11 +2,11 @@ package org.foi.emp.hlesar.SAX;
 
 import java.util.ArrayList;
 
-import org.foi.emp.hlesar.Forecast;
+import org.foi.emp.hlesar.IPrognoza;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
-public class Prognoza extends DefaultHandler implements Forecast {
+public class SAXPrognoza extends DefaultHandler implements IPrognoza {
 
     Izmjena izmjena;
     ArrayList<Grad> gradovi = new ArrayList<Grad>();
@@ -16,7 +16,7 @@ public class Prognoza extends DefaultHandler implements Forecast {
     Dan trenutniDan;
 
     @Override
-    public String getForecast() {
+    public String ispisPrognoze() {
         StringBuilder builder = new StringBuilder();
         for (Grad grad : this.gradovi) {
             builder.append(grad.toString() + "\n");

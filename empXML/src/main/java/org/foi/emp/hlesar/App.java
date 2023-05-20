@@ -10,8 +10,8 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
-import org.foi.emp.hlesar.DOM.DOMCurrentWeather;
-import org.foi.emp.hlesar.SAX.Prognoza;
+import org.foi.emp.hlesar.DOM.DOMPrognoza;
+import org.foi.emp.hlesar.SAX.SAXPrognoza;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -20,17 +20,17 @@ public class App {
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
-            DOMCurrentWeather dom = new DOMCurrentWeather(DemoFile.getDemoCurrentForecastXML(),
-                    DemoFile.getDemoCurrentForecastXSD());
-            System.out.println(dom.getForecast());
+            DOMPrognoza dom = new DOMPrognoza(DemoDatoteke.demoPrognozaXML(),
+                    DemoDatoteke.demoPrognozaXSD());
+            System.out.println(dom.ispisPrognoze());
 
             SAXParserFactory saxFactory = SAXParserFactory.newInstance();
             SAXParser saxParser = saxFactory.newSAXParser();
-            Prognoza handler = new Prognoza();
+            SAXPrognoza handler = new SAXPrognoza();
 
-            saxParser.parse(DemoFile.getDemoForecastXML(), handler);
+            saxParser.parse(DemoDatoteke.demoTrodnevnaPrognozaXML(), handler);
 
-            System.out.println(handler.getForecast());
+            System.out.println(handler.ispisPrognoze());
 
             // DocumentBuilder builder = factory.newDocumentBuilder();
             // File input = DemoFile.openDemoXMLFile();
