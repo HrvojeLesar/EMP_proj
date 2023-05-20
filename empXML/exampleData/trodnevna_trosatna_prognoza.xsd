@@ -1,0 +1,40 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:complexType name="izmjena">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="run" type="xs:integer">
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="dan">
+        <xs:sequence>
+            <xs:element name="t_2m" type="xs:integer" />
+            <xs:element name="simbol" type="xs:string" />
+            <xs:element name="vjetar" type="xs:string" />
+            <xs:element name="oborina" type="xs:double" />
+        </xs:sequence>
+        <xs:attribute name="datum" type="xs:string" />
+        <xs:attribute name="dtj" type="xs:string" />
+        <xs:attribute name="sat" type="xs:integer" />
+    </xs:complexType>
+
+    <xs:complexType name="grad">
+        <xs:sequence>
+            <xs:element name="dan" type="dan" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="ime" type="xs:string" />
+        <xs:attribute name="code" type="xs:string" />
+    </xs:complexType>
+
+    <xs:complexType name="prognoza">
+        <xs:sequence>
+            <xs:element name="izmjena" type="izmjena" />
+            <xs:element name="grad" type="grad" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="trodnevna-trosatna" type="prognoza" />
+</xs:schema>
