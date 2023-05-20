@@ -1,0 +1,72 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="adresa" type="adresa" />
+    <xs:complexType name="adresa">
+        <xs:sequence>
+            <xs:element name="adresa_ulice" type="xs:string" />
+            <xs:element name="postanski_broj" type="xs:integer" minOccurs="0" maxOccurs="1" />
+            <xs:element name="grad" type="xs:string" />
+            <xs:element name="drzava" type="xs:string" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="tvrtka">
+        <xs:sequence>
+            <xs:element name="naziv_tvrtke" type="xs:string" />
+            <xs:element name="oib" type="xs:integer" />
+            <xs:element name="adresa" type="adresa" />
+            <xs:element name="swift" type="xs:string" />
+            <xs:element name="iban" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="kupac">
+        <xs:sequence>
+            <xs:element name="naziv_kupca" type="xs:string" />
+            <xs:element name="oib" type="xs:integer" />
+            <xs:element name="adresa" type="adresa" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="stavka_racuna">
+        <xs:sequence>
+            <xs:element name="redni_broj" type="xs:integer" />
+            <xs:element name="proizvod" type="xs:string" />
+            <xs:element name="opis" type="xs:string" />
+            <xs:element name="jedinica_mjere" type="xs:string" />
+            <xs:element name="kolicina" type="xs:decimal" />
+            <xs:element name="jamstvo" type="xs:integer" />
+            <xs:element name="cijena_bez_pdv" type="xs:decimal" />
+            <xs:element name="popust_posto" type="xs:decimal" />
+            <xs:element name="pdv_posto" type="xs:decimal" />
+            <xs:element name="iznos_bez_pdv" type="xs:decimal" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="racun" type="racun" />
+    <xs:complexType name="racun">
+        <xs:sequence>
+
+            <xs:element name="broj_racuna" type="xs:string" />
+
+            <xs:element name="tvrtka" type="tvrtka" />
+
+            <xs:element name="kupac" type="kupac" />
+
+            <xs:element name="stavka_racuna" minOccurs="1" maxOccurs="unbounded" type="stavka_racuna" />
+
+            <xs:element name="stopa_pdv" type="xs:decimal" />
+            <xs:element name="iznos_osnovice_za_pdv_po_stopi" type="xs:decimal" />
+            <xs:element name="iznos_pdv_po_stopi" type="xs:decimal" />
+            <xs:element name="ukupno" type="xs:decimal" />
+
+            <xs:element name="datum_izdavanja" type="xs:date" />
+            <xs:element name="datum_dospijeca" type="xs:date" />
+            <xs:element name="datum_isporuke" type="xs:date" />
+            <xs:element name="vrsta_placanja" type="xs:string" />
+            <xs:element name="racun_izradio" type="xs:string" />
+
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

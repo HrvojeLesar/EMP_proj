@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<racun>
+    <broj_racuna>20-2016-5</broj_racuna>
+
+    <tvrtka>
+        <naziv_tvrtke>Vomi IT d.o.o.</naziv_tvrtke>
+        <oib>54258390599</oib>
+        <adresa>
+            <adresa_ulice>Ulica Hrvatske Republike 17b</adresa_ulice>
+            <postanski_broj>31000</postanski_broj>
+            <grad>Osijek</grad>
+            <drzava>Hrvatska</drzava>
+        </adresa>
+        <swift>ZABAHR2X</swift>
+        <iban>HR4223600001102438758</iban>
+    </tvrtka>
+
+    <kupac>
+        <naziv_kupca>AB d.o.o.</naziv_kupca>
+        <oib>12345678901</oib>
+        <adresa>
+            <adresa_ulice>Ulica Hrvatske Republike 17b</adresa_ulice>
+            <grad>Osijek</grad>
+        </adresa>
+    </kupac>
+
+    <stavka_racuna>
+        <redni_broj>1</redni_broj>
+        <proizvod>Medium paket aplikacije Moja Tvrtka (002)</proizvod>
+        <opis>Sadrži: 3 tvrtke, prostor za 2000 dokumenata, pretplata traje godinu dana</opis>
+        <jedinica_mjere>kom</jedinica_mjere>
+        <kolicina>1.00</kolicina>
+        <jamstvo>0</jamstvo>
+        <cijena_bez_pdv>480.00</cijena_bez_pdv>
+        <popust_posto>0.00</popust_posto>
+        <pdv_posto>25.00</pdv_posto>
+        <iznos_bez_pdv>480.00</iznos_bez_pdv>
+    </stavka_racuna>
+
+    <stopa_pdv>25.00</stopa_pdv>
+    <iznos_osnovice_za_pdv_po_stopi>480.00</iznos_osnovice_za_pdv_po_stopi>
+    <iznos_pdv_po_stopi>120.00</iznos_pdv_po_stopi>
+    <ukupno>600.00</ukupno>
+
+    <datum_izdavanja>2016-11-14</datum_izdavanja>
+    <datum_dospijeca>2016-11-14</datum_dospijeca>
+    <datum_isporuke>2016-11-14</datum_isporuke>
+    <vrsta_placanja>transakcijski račun</vrsta_placanja>
+    <racun_izradio>(13:13)</racun_izradio>
+
+</racun>
