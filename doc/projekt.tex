@@ -1,25 +1,22 @@
-\documentclass[]{foi}
+\documentclass{foi}
 \usepackage[utf8]{inputenc}
 \usepackage{lipsum}
 
-\vrstaRada{\projekt}
-
+\vrstaRada{\projekt} % \diplomski
 \title{Rad s XML u Javi}
-\predmet{\predmetEMP}
 
 \author{Hrvoje Lesar}
-\spolStudenta{\musko}
+\spolStudenta{\musko} % \zensko ili \musko
 
 \mentor{Sandro Gerić}
-\spolMentora{\musko}
-\titulaProfesora{Izv. prof. dr. sc.}
-
+\spolMentora{\musko} % \zensko ili \musko
 \godina{2023}
 \mjesec{Svibanj}
-
+\date{2023}
+%\status{redoviti}
 \indeks{0016133479}
-
-\smjer{Organizacija poslovnih sustava}
+\smjer{Organizacija poslovnih sustava} % (ili Poslovni sustavi, Ekonomika poduzetništva, Primjena informacijske tehnologije u poslovanju, Informacijsko i programsko inženjerstvo, Baze podataka i baze znanja, Organizacija poslovnih sustava, Informatika u obrazovanju)
+\titulaProfesora{Izv. prof. dr. sc.}
 
 \begin{document}
 
@@ -27,7 +24,6 @@
 
 \tableofcontents
 
-\makeatletter \def\@dotsep{4.5} \makeatother
 \pagestyle{plain}
 
 \chapter{Uvod}
@@ -425,6 +421,10 @@ Suprotno se može postići korištenjem Marshallera koji pretvara postojeći obj
 
 \chapter{Zaključak}
 
-\makebackmatter
+\printbibliography[title=Popis literature]
+\addcontentsline{toc}{chapter}{Popis literature}
+
+\listoffigures
+\addcontentsline{toc}{chapter}{Popis slika}
 
 \end{document}
