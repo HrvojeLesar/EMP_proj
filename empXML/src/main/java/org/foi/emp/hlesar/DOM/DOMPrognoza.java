@@ -52,15 +52,15 @@ public class DOMPrognoza implements IPrognoza {
                 vrijeme);
     }
 
-    Element pronadiGrad(String cityName, Element root) throws Exception {
-        NodeList cityNodes = root.getElementsByTagName("Grad");
-        int len = cityNodes.getLength();
+    Element pronadiGrad(String imeGrada, Element pocetniElement) throws Exception {
+        NodeList gradCvorovi = pocetniElement.getElementsByTagName("Grad");
+        int len = gradCvorovi.getLength();
         for (int i = 0; i < len; i++) {
-            Node cityNode = cityNodes.item(i);
-            if (cityNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element cityElement = (Element) cityNode;
-                if (cityElement.getElementsByTagName("GradIme").item(0).getTextContent().equals(cityName)) {
-                    return cityElement;
+            Node gradCvor = gradCvorovi.item(i);
+            if (gradCvor.getNodeType() == Node.ELEMENT_NODE) {
+                Element gradElement = (Element) gradCvor;
+                if (gradElement.getElementsByTagName("GradIme").item(0).getTextContent().equals(imeGrada)) {
+                    return gradElement;
                 }
             }
         }

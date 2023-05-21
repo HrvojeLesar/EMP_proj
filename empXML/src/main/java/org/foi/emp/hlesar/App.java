@@ -30,14 +30,14 @@ public class App {
 
             SAXParserFactory saxFactory = SAXParserFactory.newInstance();
             SAXParser saxParser = saxFactory.newSAXParser();
-            SAXPrognoza handler = new SAXPrognoza();
+            SAXPrognoza prognoza = new SAXPrognoza();
+            saxParser.parse(DemoDatoteke.demoTrodnevnaPrognozaXML(), prognoza);
 
-            saxParser.parse(DemoDatoteke.demoTrodnevnaPrognozaXML(), handler);
             // System.out.println(handler.ispisPrognoze());
 
             JAXBContext jaxbContext = JAXBContext.newInstance(MeteoroloskiPodaciTjedanDana.class);
-            Unmarshaller um = jaxbContext.createUnmarshaller();
-            MeteoroloskiPodaciTjedanDana mp = (MeteoroloskiPodaciTjedanDana) um
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+            MeteoroloskiPodaciTjedanDana meteoroloskiPodaci = (MeteoroloskiPodaciTjedanDana) unmarshaller
                     .unmarshal(DemoDatoteke.demoSedmodnevniPodaciXML());
 
             // DocumentBuilder builder = factory.newDocumentBuilder();
