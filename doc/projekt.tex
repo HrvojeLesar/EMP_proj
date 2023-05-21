@@ -26,6 +26,19 @@
 \pagestyle{plain}
 
 \chapter{Uvod}
+Kroz rad će se biti objašnjen XML; kakav je to format, biti će definirana pravila koja
+se moraju poštivati kod pisanja XML-a, struktura XML dokumenta. Nadalje ćemo pregledati
+kako se XML koristi u programskom jeziku Java, te pokazati kako ga na više načina
+parsirati i provjeravati da dokument odgovara priloženoj XSD shemi.
+
+Izvan ovog dokumenta projekt je strukturiran u dvije cjeline; Jedna cjelina je
+dokumentacija tj. LaTeX dokument i skripte kojima se može generirati ovaj pdf.
+Drugi dio je izvorni kod. U direktoriju s izvornim kodom je priložena datoteka
+README.md u kojoj je dokumentirano kako se može kompajlirati i pokrenuti izrađeni
+program. Program je jednostavna konzolna aplikacija koja ispisuje vremensku prognozu
+iz priloženih XML datoteka \cite{dhmz}. Zbog lakšeg pokretanja programa postavljena je
+izvršna datoteka u direktorij s izvornim kodom, da bi se izbjegla potreba za kompalacijom koda.
+
 
 \chapter{XML}
 XML je standard za označavanje dokumenata koji podržava W3C organizacija.
@@ -419,6 +432,14 @@ prima XML datoteku i direktno je parsira i mapira u zadani objekt.
 Suprotno se može postići korištenjem Marshallera koji pretvara postojeći objekt u XML.
 
 \chapter{Zaključak}
+Raditi s XML-om u javi je vrlo jednostavno. Postoji veliki broj dostupnih knjižnica koje
+omogućuju brz i lagan rad. Ovisno o potrebama moguće je koristiti različite parsere koji
+nude različite performanse, načine manipulacijom podataka. Primjena XSD-a prije samog
+parsiranja nam garantira da dokument koji se parsira uvijek ima elemente koje očekujemo
+u programu te omogućava lakši rad s XML-om i spriječava stvaranje bugova. U projektu nije
+obrađen XPath koji omogućuje navigaciju kroz DOM stablo za lakše dohvaćanje podataka
+iz stabla, no isto se često koristi u programima.
+
 
 \printbibliography[title=Popis literature]
 \addcontentsline{toc}{chapter}{Popis literature}
