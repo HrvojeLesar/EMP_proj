@@ -12,10 +12,10 @@ import javax.xml.validation.Validator;
 import org.xml.sax.SAXException;
 
 public class XSDValidator {
-    public static void validate(File xmlFile, File xsdFile) throws SAXException, IOException {
+    public static void validiraj(File xmlDat, File xsdDat) throws SAXException, IOException {
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = schemaFactory.newSchema(xsdFile);
+        Schema schema = schemaFactory.newSchema(xsdDat);
         Validator validator = schema.newValidator();
-        validator.validate(new StreamSource(xmlFile));
+        validator.validate(new StreamSource(xmlDat));
     }
 }

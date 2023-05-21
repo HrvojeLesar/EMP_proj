@@ -70,7 +70,7 @@ public class DOMPrognoza implements IPrognoza {
     public DOMPrognoza(File xmlFile, File xsdFile)
             throws SAXException, IOException, ParserConfigurationException {
         this(xmlFile);
-        XSDValidator.validate(xmlFile, xsdFile);
+        XSDValidator.validiraj(xmlFile, xsdFile);
     }
 
     DOMPrognoza(File xmlFile) throws SAXException, IOException, ParserConfigurationException {
