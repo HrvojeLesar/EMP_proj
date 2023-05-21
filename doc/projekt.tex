@@ -301,7 +301,127 @@ implementira potrebne metode te \texttt{parse} koristi iste kod parsiranja tj. k
 pokretanja događaja.
 
 \section{DOM}
+DOM parser, Data Object Model parser pretvara XML datoteku u DOM reprezentaciju.
+DOM se prikazuje kao u modelu stabla. Korijen stabla je čvor dokument iz kojeg se
+granaju svi ostali elementi. U kontekstu XML-a na istoj razini se nalazi element,
+atributi, vrijednost elementa (ako ima vrijednost) \cite{java_and_xml}. Sljedeća slika prikazuje primjer
+stabla koje je kreirano nakon parsiranja XML dokumenta. Za razliku od SAX parsera
+DOM učitava cijeli dokument u memoriju i manje je prikladan za velike dokumente.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.9\textwidth]{slike/DOM_stablo.png}
+	\caption{DOM stablo}
+\end{figure}
+
+\begin{lstlisting}[language=java, caption={Dohvačanje vrijednosti iz DOM stabla}]
+public class DOMPrognoza {
+
+    public String ispisPrognoze() {
+        Element korijenskiElement = this.xmlDocument.getDocumentElement();
+
+        Element prognozaDatum = (Element) korijenskiElement.getElementsByTagName("DatumTermin").item(0);
+        String datum = prognozaDatum.getElementsByTagName("Datum").item(0).getTextContent();
+
+        ...
+
+        String imeGrada = grad.getElementsByTagName("GradIme").item(0).getTextContent();
+        Element podatciElement = (Element) grad.getElementsByTagName("Podatci").item(0);
+        double temperatura = Double.parseDouble(podatciElement.getElementsByTagName("Temp").item(0).getTextContent());
+        String vrijeme = podatciElement.getElementsByTagName("Vrijeme").item(0).getTextContent();
+
+        ...
+    }
+
+    Element pronadiGrad(String imeGrada, Element pocetniElement) throws Exception {
+        NodeList gradCvorovi = pocetniElement.getElementsByTagName("Grad");
+        int len = gradCvorovi.getLength();
+        for (int i = 0; i < len; i++) {
+            Node gradCvor = gradCvorovi.item(i);
+            if (gradCvor.getNodeType() == Node.ELEMENT_NODE) {
+                Element gradElement = (Element) gradCvor;
+                if (gradElement.getElementsByTagName("GradIme").item(0).getTextContent().equals(imeGrada)) {
+                    return gradElement;
+                }
+            }
+        }
+        throw new Exception("Grad nije bio pronađen");
+    }
+\end{lstlisting}
+
+U isječku se nalazi kod koji iz DOM stabla izvlači potrebne podatke za ispis vremenske
+prognoze. Metoda \texttt{ispisPrognoze} počinje s dohvaćanjem korijenskog elementa
+iz DOM stabla, korijenski element se dohvaća metodom \texttt{getDocumentElement}.
+Slijedeće se iz korijenskog elementa dohvaća datum. To se radi na način da na korijenskom
+elementu pretražimo sve elemente koji imaju tag \texttt{DatumTermin}.
+Metoda \texttt{getElementsByTagName} vraća listu elemenata s određenim nazivom. Kako
+smo sigurni da nema više od jednog elementa koristi se metoda \texttt{item(0)}
+da se izvadi prvi element u listi. Na isti način se dobiva sam datum iz DatumTermin,
+jedina razlika je što na kraju pozivamo metodu \texttt{getTextContent} koja vraća
+datum u tekstualnom obliku. Na sličan način se dobivaju ostali podaci kao što su
+\texttt{imeGrada}, \texttt{temperatura}, \texttt{vrijeme}.
+
+Druga metoda koja je prikazana u isječku je \texttt{pronadiGrad}. Metoda prolazi kroz
+sve elemente koji imaju tag \texttt{Grad}. Za svaki pregledava ako je taj čvor zapravo
+tipa element, ako je taj uvjet zadovoljen pretvara trenutni grad iz tipa \texttt{Node}
+u tip \texttt{Element} kako bi bilo moguće pregledati podatke o elementu. Slijedeće
+pregledava vrijednost sadržanog elementa i ako je vrijednost jednaka ulaznom argumentu
+\texttt{imeGrada} metoda vraća pronađeni element.
+
 \section{JAXB}
+JAXB (Java Architecture for XML Binding) pruža API za jednostavno pretvaranje objekata
+u XML i iz XML-a u objekte. JAXB je vrlo jednostavan za koristiti i zahtjeva najmanje
+pisanja koda. Funkcionira kroz korištenje anotacija na postoječim objektima. Anotacijama
+se definiraju koji dijelovi objekta spadaju u XML dokument, koji dijelovi su elementi,
+koji dio je korijenski element, koje dijelove treba preskočiti jer nisu dio XML kojega
+generiramo ili učitavamo. Za definiranje korijenskog elementa na klasu se postavlja
+anotacija \texttt{$@$XmlRootElement}, sami elementi se definiraju postavljanjem anotacije
+\texttt{$@$XmlElement} na članove klase, atributi se definiraju anotacijom
+\texttt{$@$XmlAttribute}. Po potrebi se mogu dodavati anotacija \texttt{$@$XmlTransient}
+koja označava da se član klase ne uključuje u Xml dokument ili \texttt{$@$XmlElementWrapper}
+u slučaju kad trebamo definirati da će sljedeći element biti sadržan u drugom elementu.
+
+\begin{lstlisting}[language=java, caption={Primjer JAXB anotacija na klasama}]
+@XmlRootElement(name = "AgroMeteoroloskiPodaci")
+public class MeteoroloskiPodaciTjedanDana {
+    @XmlElement(name = "Naslov")
+    public String naslov;
+
+    @XmlElementWrapper(name = "Podaci")
+    @XmlElement(name = "Grad")
+    public ArrayList<Grad> podaci;
+}
+
+class Grad {
+    @XmlElement(name = "GradIme")
+    String gradIme;
+
+    @XmlElement(name = "Tmax")
+    String tMax;
+
+    ...
+
+    @XmlElement(name = "Sunce")
+    String sunce;
+
+    ...
+}
+\end{lstlisting}
+
+Isječak prikazuje sav kod koji je potreban za parsiranje ili kreiranje XML dokumenta iz
+objekta \texttt{MeteoroloskiPodaciTjedanDana}. Za JAXB dovoljno je postaviti anotacije
+i odmah imamo mogućnos rada s XML-om.
+
+\begin{lstlisting}[language=java, caption={Pretvaranje XML dokumenta u Java objekte korištenjem JAXB}]
+JAXBContext jaxbContext = JAXBContext.newInstance(MeteoroloskiPodaciTjedanDana.class);
+Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+MeteoroloskiPodaciTjedanDana meteoroloskiPodaci = (MeteoroloskiPodaciTjedanDana) unmarshaller.unmarshal(DemoDatoteke.demoSedmodnevniPodaciXML());
+\end{lstlisting}
+
+Kako bi pretvorili XML dokument u java objekt JAXBContext-u se pridaje klasa izlaznih
+podataka, kreira se objekt Unmarshaller koji kod korištenja metode \texttt{unmarshal}
+prima XML datoteku i direktno je parsira i mapira u zadani objekt.
+Suprotno se može postići korištenjem Marshallera koji pretvara postojeći objekt u XML.
 
 \chapter{Zaključak}
 
