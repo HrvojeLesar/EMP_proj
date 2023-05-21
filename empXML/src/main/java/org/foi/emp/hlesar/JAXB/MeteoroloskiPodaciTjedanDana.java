@@ -3,18 +3,31 @@ package org.foi.emp.hlesar.JAXB;
 
 import java.util.ArrayList;
 
+import org.foi.emp.hlesar.IPrognoza;
+
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "AgroMeteoroloskiPodaci")
-public class MeteoroloskiPodaciTjedanDana {
+public class MeteoroloskiPodaciTjedanDana implements IPrognoza {
     @XmlElement(name = "Naslov")
     public String naslov;
 
     @XmlElementWrapper(name = "Podaci")
     @XmlElement(name = "Grad")
     public ArrayList<Grad> podaci;
+
+    public String ispisPrognoze() {
+        Grad vz = new Grad();
+        for (Grad grad : this.podaci) {
+            if (grad.gradIme.equals("Varaždin")) {
+                vz = grad;
+                break;
+            }
+        }
+        return vz.toString();
+    }
 }
 
 class Grad {
@@ -56,4 +69,16 @@ class Grad {
 
     @XmlElement(name = "Tna20Min")
     String tna20Min;
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Grad: %s | Temperatura max: %s | Temperatura min: %s | Oborine: %smm | Vlaga max: %d | Vlaga min: %d",
+                this.gradIme,
+                this.tMax,
+                this.tMin,
+                this.obor,
+                this.vlagaMax,
+                this.vlagaMin);
+    }
 }

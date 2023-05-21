@@ -17,11 +17,14 @@ public class SAXPrognoza extends DefaultHandler implements IPrognoza {
 
     @Override
     public String ispisPrognoze() {
-        StringBuilder builder = new StringBuilder();
+        Grad vz = new Grad();
         for (Grad grad : this.gradovi) {
-            builder.append(grad.toString() + "\n");
+            if (grad.attrIme.equals("Varazdin")) {
+                vz = grad;
+                break;
+            }
         }
-        return builder.toString();
+        return vz.toString();
     }
 
     @Override
