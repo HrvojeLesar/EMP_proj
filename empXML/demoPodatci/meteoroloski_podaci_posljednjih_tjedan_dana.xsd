@@ -1,0 +1,36 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:complexType name="grad">
+        <xs:sequence>
+            <xs:element name="GradIme" type="xs:string" />
+            <xs:element name="Tmax" type="xs:string" />
+            <xs:element name="Tmin" type="xs:string" />
+            <xs:element name="Tmin5" type="xs:string" />
+            <xs:element name="Obor" type="xs:double" />
+            <xs:element name="Snijeg" type="xs:string" />
+            <xs:element name="VlagaMax" type="xs:integer" />
+            <xs:element name="VlagaMin" type="xs:integer" />
+            <xs:element name="Sunce" type="xs:string" />
+            <xs:element name="Tna5Max" type="xs:string" />
+            <xs:element name="Tna5Min" type="xs:string" />
+            <xs:element name="Tna20Max" type="xs:string" />
+            <xs:element name="Tna20Min" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="podaci">
+        <xs:sequence>
+            <xs:element name="Grad" type="grad" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="agroMeteoroloskiPodaci">
+        <xs:sequence>
+            <xs:element name="Naslov" type="xs:string" />
+            <xs:element name="Podaci" type="podaci" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="AgroMeteoroloskiPodaci" type="agroMeteoroloskiPodaci" />
+
+</xs:schema>

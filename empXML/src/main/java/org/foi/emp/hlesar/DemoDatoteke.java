@@ -18,4 +18,12 @@ public class DemoDatoteke {
     public static File demoTrodnevnaPrognozaXSD() {
         return new File("demoPodatci/trodnevna_trosatna_prognoza.xsd");
     }
+
+    public static File demoSedmodnevniPodaciXML() {
+        return new File("demoPodatci/meteoroloski_podaci_posljednjih_tjedan_dana.xml");
+    }
+
+    public static File demoSedmodnevniPodaciXSD() {
+        return new File("demoPodatci/meteoroloski_podaci_posljednjih_tjedan_dana.xsd");
+    }
 }

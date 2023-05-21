@@ -11,9 +11,13 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
 import org.foi.emp.hlesar.DOM.DOMPrognoza;
+import org.foi.emp.hlesar.JAXB.MeteoroloskiPodaciTjedanDana;
 import org.foi.emp.hlesar.SAX.SAXPrognoza;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Unmarshaller;
 
 public class App {
     public static void main(String[] args) {
@@ -29,8 +33,12 @@ public class App {
             SAXPrognoza handler = new SAXPrognoza();
 
             saxParser.parse(DemoDatoteke.demoTrodnevnaPrognozaXML(), handler);
+            // System.out.println(handler.ispisPrognoze());
 
-            System.out.println(handler.ispisPrognoze());
+            JAXBContext jaxbContext = JAXBContext.newInstance(MeteoroloskiPodaciTjedanDana.class);
+            Unmarshaller um = jaxbContext.createUnmarshaller();
+            MeteoroloskiPodaciTjedanDana mp = (MeteoroloskiPodaciTjedanDana) um
+                    .unmarshal(DemoDatoteke.demoSedmodnevniPodaciXML());
 
             // DocumentBuilder builder = factory.newDocumentBuilder();
             // File input = DemoFile.openDemoXMLFile();
